@@ -7,7 +7,7 @@
       d:DesignHeight="400" d:DesignWidth="650"
 	Title="FacultyFormPage">
 
-    <Grid>
+    <Grid Background="White">
         <TextBox HorizontalAlignment="Left" Height="23" Margin="160,84,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="0"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="160,135,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="1"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="160,184,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="2"/>

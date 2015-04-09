@@ -89,8 +89,8 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Label VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="30px" Content="Invoices" Margin="369,33,355,0" Height="51" Width="610" FontFamily="SketchFlow Print" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
-        <Label x:Name="dateLabel" HorizontalAlignment="Left" Margin="124,42,0,0" VerticalAlignment="Top" Content="{Binding Mode=OneWay, Source={StaticResource dateString}}" FontSize="18"/>
-        <res:TimeLabel x:Name="timeLabel" HorizontalAlignment="Left" Margin="1020,42,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label x:Name="dateLabel" HorizontalAlignment="Left" Margin="100,42,0,0" VerticalAlignment="Top" Content="{Binding Mode=OneWay, Source={StaticResource dateString}}" FontSize="18"/>
+        <res:TimeLabel x:Name="timeLabel" HorizontalAlignment="Right" Margin="0,42,100,0" VerticalAlignment="Top" FontSize="18"/>
         <!--below is the body Grid where most of the content will be in-->
         <Grid Height="523" Margin="0,143,0,0" VerticalAlignment="Top"  Background="#4C000000" Width="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenWidthKey}}" HorizontalAlignment="Center">
 

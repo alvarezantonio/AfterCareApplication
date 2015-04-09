@@ -6,7 +6,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="650"
 	Title="NewUserFormPage">
-    <Grid>
+    <Grid Background="White">
         <TextBox HorizontalAlignment="Left" Height="23" Margin="197,95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="197,146,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="197,195,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14"/>

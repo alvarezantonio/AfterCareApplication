@@ -17,23 +17,24 @@
         <Label VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="30px" Content="Hello, please Log In to continue" Margin="64,42,86,0" Height="51" Width="610" FontFamily="SketchFlow Print" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
         <Grid Height="523" Margin="0,143,0,0" VerticalAlignment="Top"  Background="#4C000000" Width="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenWidthKey}}" HorizontalAlignment="Center" >
             <WrapPanel Height="475" Margin="197,25,714,0" VerticalAlignment="Top" Width="449" >
-            <Label x:Name="announcementLabel" Content="Announcements!" Width="448" Background="#660C4891" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <ListBox x:Name="announcementList" Height="447" Width="449" FontSize="18">
-                <ListBoxItem Content="No Announcements Today!"/>
-            </ListBox>
-        </WrapPanel>
-        <WrapPanel HorizontalAlignment="Center" Height="285" Margin="829,150,158,0" VerticalAlignment="Top" Width="373" >
-            <Label x:Name="logInLabel" Content="Log In" Width="372" HorizontalContentAlignment="Center" BorderThickness="0" BorderBrush="Black" OpacityMask="Black" Background="#660C4891" FontSize="20" Height="46"/>
-            <Grid Height="253" Width="376" Background="#660088FF" KeyUp="Grid_KeyUp_1">
-                <Label x:Name="userLabel" Content="User Name" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="144,49,144,0" FontSize="16" />
-                <TextBox x:Name="userName"  HorizontalAlignment="Center" Height="23" Margin="128,80,128,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" MaxLines="1"/>
-                <Label x:Name="passLabel" Content="Password" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="146,139,145,0" FontSize="18"/>
-                <TextBox x:Name="Password" HorizontalAlignment="Center" Height="23" Margin="128,170,128,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" MaxLines="1"/>
-            </Grid>
-        </WrapPanel>
-            </Grid>
-        <Label x:Name="dateLabel" HorizontalAlignment="Left" Margin="124,42,0,0" VerticalAlignment="Top" Content="{Binding Mode=OneWay, Source={StaticResource dateString}}" FontSize="18"/>
-        <res:TimeLabel x:Name="timeLabel" HorizontalAlignment="Left" Margin="1020,42,0,0" VerticalAlignment="Top" FontSize="18"/>
-    
-   </Grid>
+                <Label x:Name="announcementLabel" Content="Announcements!" Width="448" Background="#660C4891" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <ListBox x:Name="announcementList" Height="447" Width="449" FontSize="18">
+                    <ListBoxItem Content="No Announcements Today!"/>
+                </ListBox>
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Center" Height="285" Margin="829,150,158,0" VerticalAlignment="Top" Width="373" >
+                <Label x:Name="logInLabel" Content="Log In" Width="372" HorizontalContentAlignment="Center" BorderThickness="0" BorderBrush="Black" OpacityMask="Black" Background="#660C4891" FontSize="20" Height="46"/>
+                <Grid Height="253" Width="376" Background="#660088FF" KeyUp="Grid_KeyUp_1">
+                    <Label x:Name="userLabel" Content="User Name" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="69,58,219,0" FontSize="16" />
+                    <TextBox x:Name="userName"  HorizontalAlignment="Center" Height="31" Margin="180,58,76,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" MaxLines="1"/>
+                    <Label x:Name="passLabel" Content="Password" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="72,89,219,0" FontSize="18"/>
+                    <TextBox x:Name="password" HorizontalAlignment="Center" Height="29" Margin="180,94,76,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" MaxLines="1"/>
+                    <Button Content="Login" HorizontalAlignment="Left" Margin="180,128,0,0" VerticalAlignment="Top" Width="120" Height="29" Click="Button_Click"/>
+                </Grid>
+            </WrapPanel>
+        </Grid>
+        <Label x:Name="dateLabel" HorizontalAlignment="Left" Margin="100,42,0,0" VerticalAlignment="Top" Content="{Binding Mode=OneWay, Source={StaticResource dateString}}" FontSize="18"/>
+        <res:TimeLabel x:Name="timeLabel" HorizontalAlignment="Right" Margin="0,42,100,0" VerticalAlignment="Top" FontSize="18"/>
+
+    </Grid>
 </Page>

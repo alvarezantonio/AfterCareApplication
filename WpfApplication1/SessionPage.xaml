@@ -22,7 +22,7 @@
             <Button x:Name="userSession" Content="User Sessions" Width="200" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="716,290,0,0" FontFamily="SketchFlow Print" FontSize="18"/>
             </Grid>
         <Label VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="30px" Content="Session" Margin="64,42,86,0" Height="51" Width="610" FontFamily="SketchFlow Print" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
-        <Label x:Name="dateLabel" HorizontalAlignment="Left" Margin="124,42,0,0" VerticalAlignment="Top" Content="{Binding Mode=OneWay, Source={StaticResource dateString}}" FontSize="18"/>
-        <res:TimeLabel x:Name="timeLabel" HorizontalAlignment="Left" Margin="1020,42,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label x:Name="dateLabel" HorizontalAlignment="Left" Margin="100,42,0,0" VerticalAlignment="Top" Content="{Binding Mode=OneWay, Source={StaticResource dateString}}" FontSize="18"/>
+        <res:TimeLabel x:Name="timeLabel" HorizontalAlignment="Right" Margin="0,42,100,0" VerticalAlignment="Top" FontSize="18"/>
     </Grid>
 </Page>

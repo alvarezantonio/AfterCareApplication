@@ -29,9 +29,18 @@ namespace AfterCareApplication
         {
             if (e.Key == Key.Enter)
             {
-                Page welcomeWin = new WelcomePage();
-                this.NavigationService.Navigate(welcomeWin);
+                LogIn();
             }
+        }
+        private void LogIn()
+        {
+            Page welcomeWin = new WelcomePage();
+            this.NavigationService.Navigate(welcomeWin);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            LogIn();
         }
     }
 }
