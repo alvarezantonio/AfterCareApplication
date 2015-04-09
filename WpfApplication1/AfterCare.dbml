@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AfterCareDB" Class="AfterCareDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=BACKTOSCHOOL\SQLEXPRESS;Initial Catalog=AfterCareDB;Integrated Security=True" SettingsObjectName="AfterCareApplication.Properties.Settings" SettingsPropertyName="AfterCareDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Access" Member="Accesses">
+    <Type Name="Access">
+      <Column Name="accessId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="accessName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="accessDescription" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Access_User" Member="Users" ThisKey="accessId" OtherKey="accessId" Type="User" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_Session" Member="User_Sessions">
+    <Type Name="User_Session">
+      <Column Name="sessionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="userId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="userInTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="userOutTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Association Name="Session_User_Session" Member="Session" ThisKey="sessionId" OtherKey="sessionId" Type="Session" IsForeignKey="true" />
+      <Association Name="User_User_Session" Member="User" ThisKey="userId" OtherKey="userId" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Faculty" Member="Faculties">
+    <Type Name="Faculty">
+      <Column Name="facultyId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="userId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="streetNumber" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="streetName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="city" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="state" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="zip" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Faculty_Faculty_Payroll" Member="Faculty_Payrolls" ThisKey="facultyId" OtherKey="facultyId" Type="Faculty_Payroll" />
+      <Association Name="Faculty_Faculty_Phone" Member="Faculty_Phones" ThisKey="facultyId" OtherKey="facultyId" Type="Faculty_Phone" />
+      <Association Name="Faculty_faculty_Wage" Member="faculty_Wages" ThisKey="facultyId" OtherKey="facultyId" Type="faculty_Wage" />
+      <Association Name="User_Faculty" Member="User" ThisKey="userId" OtherKey="userId" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Faculty_Payroll" Member="Faculty_Payrolls">
+    <Type Name="Faculty_Payroll">
+      <Column Name="payrollId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="facultyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="startDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="endDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="Faculty_Faculty_Payroll" Member="Faculty" ThisKey="facultyId" OtherKey="facultyId" Type="Faculty" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Faculty_Phone" Member="Faculty_Phones">
+    <Type Name="Faculty_Phone">
+      <Column Name="facultyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="facultyPhone" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="phoneType" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Faculty_Faculty_Phone" Member="Faculty" ThisKey="facultyId" OtherKey="facultyId" Type="Faculty" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.faculty_Wage" Member="faculty_Wages">
+    <Type Name="faculty_Wage">
+      <Column Name="facultyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="wageAmount" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="wageType" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Faculty_faculty_Wage" Member="Faculty" ThisKey="facultyId" OtherKey="facultyId" Type="Faculty" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Guardian" Member="Guardians">
+    <Type Name="Guardian">
+      <Column Name="guardianId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="userId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="streetNumber" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="streetName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="city" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="state" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="zip" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="Guardian_Guardian_Invoice" Member="Guardian_Invoices" ThisKey="guardianId" OtherKey="guardianId" Type="Guardian_Invoice" />
+      <Association Name="Guardian_Guardian_Phone" Member="Guardian_Phones" ThisKey="guardianId" OtherKey="guardianId" Type="Guardian_Phone" />
+      <Association Name="Guardian_Student_Guardian" Member="Student_Guardians" ThisKey="guardianId" OtherKey="guardianId" Type="Student_Guardian" />
+      <Association Name="User_Guardian" Member="User" ThisKey="userId" OtherKey="userId" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Guardian_Invoice" Member="Guardian_Invoices">
+    <Type Name="Guardian_Invoice">
+      <Column Name="invoiceId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="guardianId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="startDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="endDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="paid" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="balance" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="Guardian_Guardian_Invoice" Member="Guardian" ThisKey="guardianId" OtherKey="guardianId" Type="Guardian" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Guardian_Phone" Member="Guardian_Phones">
+    <Type Name="Guardian_Phone">
+      <Column Name="guardianId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="guardianPhone" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="phoneType" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Guardian_Guardian_Phone" Member="Guardian" ThisKey="guardianId" OtherKey="guardianId" Type="Guardian" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Session" Member="Sessions">
+    <Type Name="Session">
+      <Column Name="sessionId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="sessionDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="sessionStartTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="sessionEndTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Association Name="Session_User_Session" Member="User_Sessions" ThisKey="sessionId" OtherKey="sessionId" Type="User_Session" />
+      <Association Name="Session_Session_Statement" Member="Session_Statements" ThisKey="sessionId" OtherKey="sessionId" Type="Session_Statement" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Session_Statement" Member="Session_Statements">
+    <Type Name="Session_Statement">
+      <Column Name="statementId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sessionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="startDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="endDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="profit" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="Session_Session_Statement" Member="Session" ThisKey="sessionId" OtherKey="sessionId" Type="Session" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Student" Member="Students">
+    <Type Name="Student">
+      <Column Name="studentId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="userId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="homeroom" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="birthday" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="Student_Student_Fee" Member="Student_Fees" ThisKey="studentId" OtherKey="studentId" Type="Student_Fee" />
+      <Association Name="Student_Student_Guardian" Member="Student_Guardians" ThisKey="studentId" OtherKey="studentId" Type="Student_Guardian" />
+      <Association Name="User_Student" Member="User" ThisKey="userId" OtherKey="userId" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Student_Fee" Member="Student_Fees">
+    <Type Name="Student_Fee">
+      <Column Name="studentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="feeAmount" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="feeType" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Student_Student_Fee" Member="Student" ThisKey="studentId" OtherKey="studentId" Type="Student" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Student_Guardian" Member="Student_Guardians">
+    <Type Name="Student_Guardian">
+      <Column Name="guardianId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="studentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="relationship" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Guardian_Student_Guardian" Member="Guardian" ThisKey="guardianId" OtherKey="guardianId" Type="Guardian" IsForeignKey="true" />
+      <Association Name="Student_Student_Guardian" Member="Student" ThisKey="studentId" OtherKey="studentId" Type="Student" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="userId" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="firstName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="accessId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_User_Session" Member="User_Sessions" ThisKey="userId" OtherKey="userId" Type="User_Session" />
+      <Association Name="User_Faculty" Member="Faculties" ThisKey="userId" OtherKey="userId" Type="Faculty" />
+      <Association Name="User_Guardian" Member="Guardians" ThisKey="userId" OtherKey="userId" Type="Guardian" />
+      <Association Name="User_Student" Member="Students" ThisKey="userId" OtherKey="userId" Type="Student" />
+      <Association Name="Access_User" Member="Access" ThisKey="accessId" OtherKey="accessId" Type="Access" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
