@@ -1,0 +1,24 @@
+﻿<Page x:Class="AfterCareApplication.ReportsPage"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:res="clr-namespace:AfterCareApplication"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1360"
+	Title="ReportsPage">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="#FFA8A5A5"/>
+                <GradientStop Color="#FFF9BB71" Offset="0.923"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid Height="523" Margin="0,143,0,0" VerticalAlignment="Top"  Background="#4C000000" Width="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenWidthKey}}" HorizontalAlignment="Center" >
+            
+        </Grid>
+        <Label VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="30px" Content="Reports" Margin="369,33,355,0" Height="51" Width="610" FontFamily="SketchFlow Print" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+        <Label x:Name="dateLabel" HorizontalAlignment="Left" Margin="124,42,0,0" VerticalAlignment="Top" Content="{Binding Mode=OneWay, Source={StaticResource dateString}}" FontSize="18"/>
+        <res:TimeLabel x:Name="timeLabel" HorizontalAlignment="Left" Margin="1020,42,0,0" VerticalAlignment="Top" FontSize="18"/>
+    </Grid>
+</Page>
