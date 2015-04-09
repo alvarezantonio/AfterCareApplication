@@ -23,6 +23,7 @@ namespace AfterCareApplication
         public LogInPage()
         {
             InitializeComponent();
+            userName.Focus();
         }
 
         private void Grid_KeyUp_1(object sender, KeyEventArgs e)
@@ -32,15 +33,21 @@ namespace AfterCareApplication
                 LogIn();
             }
         }
-        private void LogIn()
-        {
-            Page welcomeWin = new WelcomePage();
-            this.NavigationService.Navigate(welcomeWin);
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             LogIn();
+        }
+        private void LogIn()
+        {
+            if (userName.Text.ToLower() == "admin" && password.Password.ToLower() == "admin")
+            {
+                Page welcomeWin = new WelcomePage();
+                this.NavigationService.Navigate(welcomeWin);
+            }
+            else
+            {
+                MessageBox.Show("Invalid username and/or pasword. Please try again.");
+            }
         }
     }
 }
