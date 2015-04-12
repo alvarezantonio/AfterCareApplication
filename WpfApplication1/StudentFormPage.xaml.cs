@@ -25,9 +25,17 @@ namespace AfterCareApplication
         private int dobYear = 0;
         private int dobMonth = 0;
         private int dobDay = 0;
+        AfterCareDataContext db;
 
         public StudentFormPage()
         {
+            InitializeComponent();
+            setYearItems();
+        }
+
+        public StudentFormPage(AfterCareDataContext db)
+        {
+            this.db = db;
             InitializeComponent();
             setYearItems();
         }

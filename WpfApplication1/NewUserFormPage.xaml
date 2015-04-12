@@ -3,34 +3,81 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:res="clr-namespace:AfterCareApplication"
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="650"
 	Title="NewUserFormPage">
-    <Grid Background="White">
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="197,95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="197,146,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="197,195,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="197,246,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14"/>
-        <Label Content="User Id:" HorizontalAlignment="Left" Margin="83,91,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
-        <Label Content="First Name:" HorizontalAlignment="Left" Margin="83,142,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
-        <Label Content="Password:" HorizontalAlignment="Left" Margin="83,242,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
-        <Label Content="Last Name:" HorizontalAlignment="Left" Margin="83,191,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
-        <ComboBox x:Name="userTypeBox" HorizontalAlignment="Left" Height="23" Margin="197,296,0,0" Text="TextBox" VerticalAlignment="Top" Width="120" FontSize="14">
-            <ComboBoxItem Content="Guardian"/>
+    <Page.Resources>
+        <ControlTemplate x:Key="validationErrorTemplate">
+            <DockPanel>
+                <TextBlock Foreground="Red" 
+                    DockPanel.Dock="Top" Text="{Binding ErrorContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >!</TextBlock>
+                <AdornedElementPlaceholder x:Name="ErrorAdorner"/>
+            </DockPanel>
+        </ControlTemplate>
+        <Style x:Key="textBoxInError" TargetType="{x:Type Control}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <TextBox x:Name="userIdInput" Style="{StaticResource textBoxInError}" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" HorizontalAlignment="Left" Height="23" Margin="197,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="0">
+            <TextBox.Text>
+                <Binding Path="userId" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <res:RequiredValidationRule _propertyName="userId"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox x:Name="firstNameInput" Style="{StaticResource textBoxInError}" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" HorizontalAlignment="Left" Height="23" Margin="197,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="1">
+            <TextBox.Text>
+                <Binding Path="firstName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <res:RequiredValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox x:Name="lastNameInput" Style="{StaticResource textBoxInError}" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" HorizontalAlignment="Left" Height="23" Margin="197,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="2">
+            <TextBox.Text>
+                <Binding Path="lastName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <res:RequiredValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <PasswordBox x:Name="passwordInput" Style="{StaticResource textBoxInError}" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" HorizontalAlignment="Left" Height="23" Margin="197,219,0,0" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="3">
+            
+        </PasswordBox>
+        <Label Content="User Id:" HorizontalAlignment="Left" Margin="83,64,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
+        <Label Content="First Name:" HorizontalAlignment="Left" Margin="83,115,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
+        <Label Content="Password:" HorizontalAlignment="Left" Margin="83,215,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
+        <Label Content="Last Name:" HorizontalAlignment="Left" Margin="83,164,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
+        <ComboBox x:Name="userTypeBox" SelectedIndex="0" HorizontalAlignment="Left" Height="23" Margin="197,306,0,0" Text="User Type" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="4" SelectionChanged="userTypeBox_SelectionChanged" SourceUpdated="userTypeBox_SourceUpdated">
             <ComboBoxItem Content="Student"/>
+            <ComboBoxItem Content="Guardian"/>
             <ComboBoxItem Content="Faculty"/>
         </ComboBox>
-        <ComboBox HorizontalAlignment="Left" Height="23" Margin="197,346,0,0" Text="TextBox" VerticalAlignment="Top" Width="120" FontSize="14">
-            <ComboBoxItem Content="Guardian"/>
-            <ComboBoxItem Content="Student"/>
-            <ComboBoxItem Content="Faculty1"/>
-            <ComboBoxItem Content="Faculty2"/>
-            <ComboBoxItem Content="Faculty3"/>
-            <ComboBoxItem Content="Administrator"/>
+        <ComboBox Name="accessBox" HorizontalAlignment="Left" Height="23" Margin="197,356,0,0" Text="Access Level" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="5" ItemsSource="{Binding dSource}" SelectionChanged="accessBox_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding accessName}">
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
         </ComboBox>
-        <Label Content="Access Level:" HorizontalAlignment="Left" Margin="83,343,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
+        <Label Content="Access Level:" HorizontalAlignment="Left" Margin="83,353,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
         <Button x:Name="nextButton" Content="Next Page" Width="200" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="408,192,0,0" FontFamily="SketchFlow Print" FontSize="18" Click="nextButton_Click"/>
         <Label Content="New User" HorizontalAlignment="Left" Margin="278,21,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Center" FontSize="20"/>
-        <Label Content="Type of User:" HorizontalAlignment="Left" Margin="83,293,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
+        <Label Content="Type of User:" HorizontalAlignment="Left" Margin="83,303,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
+        <PasswordBox x:Name="confirmPasswordInput" HorizontalAlignment="Left" Height="23" Margin="197,263,0,0" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="3"/>
+        <Label Content="Confirm Password:" HorizontalAlignment="Left" Margin="48,259,0,0" VerticalAlignment="Top" Width="128" HorizontalContentAlignment="Right" FontSize="14"/>
     </Grid>
 </Page>

@@ -20,8 +20,14 @@ namespace AfterCareApplication
     /// </summary>
     public partial class GuardianFormPage : Page
     {
+        private AfterCareDataContext db;
         public GuardianFormPage()
         {
+            InitializeComponent();
+        }
+        public GuardianFormPage(AfterCareDataContext db)
+        {
+            this.db = db;
             InitializeComponent();
         }
     }

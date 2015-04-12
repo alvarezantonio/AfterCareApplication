@@ -7,7 +7,7 @@
       d:DesignHeight="400" d:DesignWidth="650"
       Title="StudentFormPage">
 
-    <Grid Background="White">
+    <Grid>
         <Button Content="Done" HorizontalAlignment="Left" Margin="239,345,0,0" VerticalAlignment="Top" Width="75" TabIndex="9"/>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="380,345,0,0" VerticalAlignment="Top" Width="75" TabIndex="10"/>
         <Label Content="New Student" HorizontalAlignment="Left" Margin="197,21,0,0" VerticalAlignment="Top" Width="258" HorizontalContentAlignment="Center" FontSize="20"/>

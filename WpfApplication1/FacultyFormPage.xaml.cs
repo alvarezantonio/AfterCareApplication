@@ -20,8 +20,14 @@ namespace AfterCareApplication
     /// </summary>
     public partial class FacultyFormPage : Page
     {
+        AfterCareDataContext db;
         public FacultyFormPage()
         {
+            InitializeComponent();
+        }
+        public FacultyFormPage(AfterCareDataContext db)
+        {
+            this.db = db;
             InitializeComponent();
         }
     }
