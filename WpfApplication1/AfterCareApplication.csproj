@@ -97,6 +97,7 @@
     <Compile Include="ReportsPage.xaml.cs">
       <DependentUpon>ReportsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RequiredValidationRule.cs" />
     <Compile Include="RowStyleSelector.cs" />
     <Compile Include="SchedulePage.xaml.cs">
       <DependentUpon>SchedulePage.xaml</DependentUpon>
