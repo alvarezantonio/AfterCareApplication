@@ -24,7 +24,12 @@ namespace AfterCareApplication
             var str = (string)value;
             if (str == null || str.Length < 1)
             {
+                
                 return new ValidationResult(false, "*Required field");
+            }
+            else if(String.IsNullOrWhiteSpace(str))
+            {
+                return new ValidationResult(false, "*User ID can't be blank space");
             }
             else if (_propertyName != null && _propertyName.Length > 1)
             {

@@ -53,19 +53,18 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <PasswordBox x:Name="passwordInput" Style="{StaticResource textBoxInError}" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" HorizontalAlignment="Left" Height="23" Margin="197,219,0,0" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="3">
-            
-        </PasswordBox>
+        <PasswordBox x:Name="passwordInput" Style="{StaticResource textBoxInError}" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}"
+                     HorizontalAlignment="Left" Height="23" Margin="197,219,0,0" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="3" PasswordChanged="passwordInput_PasswordChanged"/>
         <Label Content="User Id:" HorizontalAlignment="Left" Margin="83,64,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
         <Label Content="First Name:" HorizontalAlignment="Left" Margin="83,115,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
         <Label Content="Password:" HorizontalAlignment="Left" Margin="83,215,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
         <Label Content="Last Name:" HorizontalAlignment="Left" Margin="83,164,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
-        <ComboBox x:Name="userTypeBox" SelectedIndex="0" HorizontalAlignment="Left" Height="23" Margin="197,306,0,0" Text="User Type" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="4" SelectionChanged="userTypeBox_SelectionChanged" SourceUpdated="userTypeBox_SourceUpdated">
+        <ComboBox x:Name="userTypeBox" SelectedIndex="0" HorizontalAlignment="Left" Height="23" Margin="197,306,0,0" Text="User Type" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="4" SelectionChanged="userTypeBox_SelectionChanged">
             <ComboBoxItem Content="Student"/>
             <ComboBoxItem Content="Guardian"/>
             <ComboBoxItem Content="Faculty"/>
         </ComboBox>
-        <ComboBox Name="accessBox" HorizontalAlignment="Left" Height="23" Margin="197,356,0,0" Text="Access Level" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="5" ItemsSource="{Binding dSource}" SelectionChanged="accessBox_SelectionChanged">
+        <ComboBox Name="accessBox" SelectedIndex="0" HorizontalAlignment="Left" Height="23" Margin="197,356,0,0" Text="Access Level" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="5" ItemsSource="{Binding dSource}" SelectionChanged="accessBox_SelectionChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding accessName}">
@@ -77,7 +76,8 @@
         <Button x:Name="nextButton" Content="Next Page" Width="200" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="408,192,0,0" FontFamily="SketchFlow Print" FontSize="18" Click="nextButton_Click"/>
         <Label Content="New User" HorizontalAlignment="Left" Margin="278,21,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Center" FontSize="20"/>
         <Label Content="Type of User:" HorizontalAlignment="Left" Margin="83,303,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
-        <PasswordBox x:Name="confirmPasswordInput" HorizontalAlignment="Left" Height="23" Margin="197,263,0,0" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="3"/>
+        <PasswordBox x:Name="confirmPasswordInput" HorizontalAlignment="Left" Height="23" Margin="197,263,0,0" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="3" PasswordChanged="confirmPasswordInput_PasswordChanged"/>
         <Label Content="Confirm Password:" HorizontalAlignment="Left" Margin="48,259,0,0" VerticalAlignment="Top" Width="128" HorizontalContentAlignment="Right" FontSize="14"/>
+        <Label Content="" Name="passErrorLabel" HorizontalAlignment="Left" Margin="176,242,0,0" VerticalAlignment="Top" Width="195" Foreground="#FFEA0000" VerticalContentAlignment="Center"/>
     </Grid>
 </Page>

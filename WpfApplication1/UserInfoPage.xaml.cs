@@ -28,12 +28,8 @@ namespace AfterCareApplication
             InitializeComponent();
         }
 
-        
-
-
         public void setUserInfo(User userInfo)
         {
-            
             AfterCareDataContext db = new AfterCareDataContext();
             info.captionLabel.Content = userType;
             info.UserName = userInfo.firstName + " " + userInfo.lastName;
@@ -48,7 +44,7 @@ namespace AfterCareApplication
                         where s.userId == userInfo.userId
                         select new { UserID = s.userId, First = u.firstName, Last = u.lastName,
                         DOB = s.birthday, Homeroom = s.homeroom}).ToList();
-                    addToGrid(new ListCollectionView(stud));
+                        addToGrid(new ListCollectionView(stud));
                     break;
                 case ("Faculty"):
                         var fac = (
@@ -70,7 +66,7 @@ namespace AfterCareApplication
                         select new { UserID = g.userId, First = u.firstName, Last = u.lastName,
                         StreetNumber = g.streetNumber, StreetName = g.streetName, City = g.city,
                         State = g.state, Zip = g.zip}).ToList();
-                    addToGrid(new ListCollectionView(guard));
+                        addToGrid(new ListCollectionView(guard));
                     break;
             }
         }
@@ -101,7 +97,7 @@ namespace AfterCareApplication
             dialogWin.ResizeMode = ResizeMode.NoResize;
             dialogWin.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             dialogWin.WindowStyle = WindowStyle.None;
-            dialogWin.Height = 400;
+            dialogWin.Height = 490;
             dialogWin.Width = 400;
             SelectUserPage facPage = new SelectUserPage(list);
             dialogWin.Content = facPage;

@@ -26,12 +26,25 @@ namespace AfterCareApplication
         public string UserName { get { return this.userName; } set { this.userName = value; } }
         public string UserTitle { get { return this.userTitle; } set { this.userTitle = value; } }
         public User UserInfo { get { return this.userInfo; } set { this.userInfo = value; } }
+        List<User> UserList { get; set; }
+        ListCollectionView userView {get; set;}
 
         public SelectUserPage(List<User> listOfUsers)
         {
             InitializeComponent();
-            ListCollectionView view = new ListCollectionView(listOfUsers);
-            this.userList.ItemsSource = listOfUsers;
+            this.userView = new ListCollectionView(listOfUsers);
+            this.UserList = listOfUsers;
+            updateUsers();
+        }
+        public void updateUsers()
+        {
+            this.userList.ItemsSource = this.UserList;
+            userList.SelectedIndex = 0;
+        }
+
+        public void updateUsers(List<User> list)
+        {
+            this.userList.ItemsSource = list;
             userList.SelectedIndex = 0;
         }
 
@@ -64,6 +77,31 @@ namespace AfterCareApplication
         private void userList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             itemSelected();
+        }
+
+        private void searchUserInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string userIn = searchUserInput.Text;
+            int indx = userIn.Length;
+
+            if (searchUserInput.Text.Length > 0 && !string.IsNullOrWhiteSpace(searchUserInput.Text))
+            {
+                List<User> newList = new List<User>();
+                foreach (User user in UserList)
+                {
+                    string fn = user.firstName;
+                    string ln = user.lastName;
+                    if (userIn.ToLower() == (fn + " " + ln).ToLower().Substring(0, indx))
+                    {
+                        newList.Add(user);
+                    }
+                }
+                updateUsers(newList);
+            }
+            else
+            {
+                updateUsers();
+            }
         }
     }
 }

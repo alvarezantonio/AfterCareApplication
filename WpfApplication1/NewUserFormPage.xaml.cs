@@ -100,15 +100,12 @@ namespace AfterCareApplication
         {
             if (accessBox != null)
             {
-                accessBox.ItemsSource = this.source;
+                accessBox.ItemsSource = null;
+                accessBox.ItemsSource = this.dSource;
+                accessBox.Items.Refresh();
                 accessBox.SelectedIndex = 0;
-            }
-        }
 
-        private void userTypeBox_SourceUpdated(object sender, DataTransferEventArgs e)
-        {
-            accessBox.Items.Refresh();
-            accessBox.SelectedIndex = 0;
+            }
         }
 
         private void accessBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -125,7 +122,43 @@ namespace AfterCareApplication
             
         }
 
+        private void passwordInput_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            PasswordBox passBox = (PasswordBox) sender;
+            string passValue = passBox.Password;
+            if (passBox.Password.Length > 0)
+            {
+                if (String.IsNullOrWhiteSpace(passValue))
+                {
+                    passErrorLabel.Content = "*Password may not start with a blank space";
+                }
+                else
+                {
+                    passErrorLabel.Content = "";
+                    this.password = passValue;
+                    confirmPasswordInput_PasswordChanged(confirmPasswordInput, e);
+                }
+            }
+            else
+            {
+                passErrorLabel.Content = "*Password may not be empty";
+            }
+        }
 
+        private void confirmPasswordInput_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            PasswordBox passBox = (PasswordBox)sender;
+            string passValue = passBox.Password;
+            
+            if (passValue.Length > 0 && passValue != password)
+            {
+                passErrorLabel.Content = "*Passwords do not match";
+            }
+            else
+            {
+                passErrorLabel.Content = "";
+            }
+        }
 
     }
 }
