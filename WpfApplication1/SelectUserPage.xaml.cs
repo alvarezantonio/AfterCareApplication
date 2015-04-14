@@ -89,12 +89,15 @@ namespace AfterCareApplication
                 List<User> newList = new List<User>();
                 foreach (User user in UserList)
                 {
-                    string fn = user.firstName;
-                    string ln = user.lastName;
-                    if (userIn.ToLower() == (fn + " " + ln).ToLower().Substring(0, indx))
-                    {
-                        newList.Add(user);
+                    try{
+                        string fn = user.firstName;
+                        string ln = user.lastName;
+                        if (String.Equals(userIn,(fn + " " + ln).Substring(0, indx), StringComparison.OrdinalIgnoreCase))
+                        {
+                            newList.Add(user);
+                        }
                     }
+                    catch(Exception ex){}
                 }
                 updateUsers(newList);
             }
