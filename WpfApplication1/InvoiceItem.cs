@@ -21,6 +21,7 @@ namespace AfterCareApplication
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public int GuardianId { get; set; }
+        public string GroupProperty { get; set; }
         public List<int> studentId = new List<int>();
         public List<User> studentUser = new List<User>();
         public List<User> StudentID

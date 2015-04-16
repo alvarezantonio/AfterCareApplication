@@ -4,37 +4,33 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:res="clr-namespace:AfterCareApplication"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="800" d:DesignWidth="1360"
-	Title="InvoicePage" Loaded="Page_Loaded_1">
+	Title="InvoicePage" Loaded="Page_Loaded">
     <!--adding xmlns:res="clr-namespace:AfterCareApplication" above allows us to access resources from the AfterCareApplication namespace-->
     <Page.Resources>
         <!--Page resources that will be referenced to later by the key
         Below is the style for the grouped invoices (By GuardianID)-->
-                <Style TargetType="{x:Type GroupItem}" x:Key="invoiceGroupStyle">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type GroupItem}">
+        <TextBox Text="{Binding nameString}" x:Key="countName"/>
+        <Style TargetType="{x:Type GroupItem}" x:Key="invoiceGroupStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GroupItem}">
                         <Expander ExpandDirection="Down" Cursor="Hand" HorizontalContentAlignment="Center">
                             <Expander.Header>
                                 <StackPanel x:Name="nameBoxPanel" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <TextBlock Text="{Binding Path=ItemCount}" FontSize="16" FontWeight="Medium"/>
-                                    <TextBlock Text=" " FontSize="16" FontWeight="Medium"/>
-                                    <TextBlock Text="Invoices " FontSize="16" FontWeight="Medium"/>
-                                    <TextBlock Text="For Gurdian ID#" FontSize="16" FontWeight="Medium"/>
-                                    <TextBlock Text="{Binding Path=Name}"  FontSize="16" FontWeight="Medium"/>
-                                    <TextBlock Text=" Name:"  FontSize="16" FontWeight="Medium"/>
-                                    <TextBlock Text="{Binding Path=Items[0].FirstName}"  FontSize="16" FontWeight="Medium"/>
-                                    <TextBlock Text=" "  FontSize="16" FontWeight="Medium"/>
-                                    <TextBlock Text="{Binding Path=Items[0].LastName}"  FontSize="16" FontWeight="Medium"/>
+                                    <TextBlock Text=" Invoices " FontSize="16" FontWeight="Medium"/>
+                                    <TextBlock Text="{Binding Path=Items[0].GroupProperty}"  FontSize="16" FontWeight="Medium"/>
+                                    <TextBlock Text="{Binding Path=Name}" FontSize="16" FontWeight="Medium"/>
                                 </StackPanel>
                             </Expander.Header>
                             <ItemsPresenter/>
                         </Expander>
                     </ControlTemplate>
                 </Setter.Value>
-                    </Setter>
-                </Style>
+            </Setter>
+        </Style>
         <!--Below is the Style Selector for the paid and unpaid invoice rows
         it will set the unpaid invoices to orange red with a border brush of red-->
         <res:RowStyleSelector x:Key="rowStyle">
@@ -62,12 +58,12 @@
                         <StackPanel>
                             <TextBlock Text="Student Information" FontSize="16" FontStyle="Italic" FontWeight="Bold"></TextBlock>
                             <DataGrid ItemsSource="{Binding StudentID}" AutoGenerateColumns="False" FontSize="16">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Access ID" Binding="{Binding accessId}" />
-                                <DataGridTextColumn Header="First Name" Binding="{Binding firstName}" />
-                                <DataGridTextColumn Header="Last Name" Binding="{Binding lastName}" />
-                                <DataGridTextColumn Header="User ID" Binding="{Binding userId}" />
-                            </DataGrid.Columns>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Access ID" Binding="{Binding accessId}" />
+                                    <DataGridTextColumn Header="First Name" Binding="{Binding firstName}" />
+                                    <DataGridTextColumn Header="Last Name" Binding="{Binding lastName}" />
+                                    <DataGridTextColumn Header="User ID" Binding="{Binding userId}" />
+                                </DataGrid.Columns>
                             </DataGrid>
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                 <Button Content="Print Invoice" Name="printButton" Padding="2px" Margin="5px"></Button>
@@ -93,27 +89,31 @@
         <res:TimeLabel x:Name="timeLabel" HorizontalAlignment="Right" Margin="0,42,100,0" VerticalAlignment="Top" FontSize="18"/>
         <!--below is the body Grid where most of the content will be in-->
         <Grid Height="523" Margin="0,143,0,0" VerticalAlignment="Top"  Background="#4C000000" Width="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenWidthKey}}" HorizontalAlignment="Center">
-
-            <DataGrid Name="invoiceGrid" RowStyleSelector="{StaticResource rowStyle}" RowDetailsTemplateSelector="{StaticResource TemplateSelector}" HorizontalAlignment="Left" Margin="112,24,0,0" VerticalAlignment="Top" Height="472" Width="1078" ItemsSource="{Binding}" AutoGenerateColumns="False">
-            <DataGrid.GroupStyle>
+            <DataGrid Name="invoiceGrid" RowStyleSelector="{StaticResource rowStyle}" RowDetailsTemplateSelector="{StaticResource TemplateSelector}" HorizontalAlignment="Left" Margin="112,24,0,0" VerticalAlignment="Top" Height="472" Width="1078" ItemsSource="{Binding}" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+                <DataGrid.GroupStyle>
                     <GroupStyle ContainerStyle="{StaticResource invoiceGroupStyle}"/>
-            </DataGrid.GroupStyle>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Invoice ID" Binding="{Binding InvoiceId}" FontSize="16"/>
-                <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate}" FontSize="16"/>
-                <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" FontSize="16"/>
-                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" FontSize="16"/>
-                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" FontSize="16"/>
-                <DataGridTextColumn Header="Street Number" Binding="{Binding StreetNumber}" FontSize="16"/>
-                <DataGridTextColumn Header="Street Name" Binding="{Binding StreetName}" FontSize="16"/>
-                <DataGridTextColumn Header="City" Binding="{Binding City}" FontSize="16"/>
-                <DataGridTextColumn Header="State" Binding="{Binding State}" FontSize="16"/>
-                <DataGridTextColumn Header="Zip" Binding="{Binding Zip}" FontSize="16"/>
-                <DataGridCheckBoxColumn Header="Paid" Binding="{Binding Paid}"/>
-                <DataGridTextColumn Header="Balance" Binding="{Binding Balance}" FontSize="16"/>
-                <DataGridTextColumn Header="Students Count" Binding="{Binding StudentCount}" FontSize="16"/>
-            </DataGrid.Columns>
-        </DataGrid>    
-            </Grid>
+                </DataGrid.GroupStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Invoice ID" Binding="{Binding InvoiceId}" FontSize="16"/>
+                    <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate}" FontSize="16"/>
+                    <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" FontSize="16"/>
+                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" FontSize="16"/>
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" FontSize="16"/>
+                    <DataGridTextColumn Header="Street Number" Binding="{Binding StreetNumber}" FontSize="16"/>
+                    <DataGridTextColumn Header="Street Name" Binding="{Binding StreetName}" FontSize="16"/>
+                    <DataGridTextColumn Header="City" Binding="{Binding City}" FontSize="16"/>
+                    <DataGridTextColumn Header="State" Binding="{Binding State}" FontSize="16"/>
+                    <DataGridTextColumn Header="Zip" Binding="{Binding Zip}" FontSize="16"/>
+                    <DataGridCheckBoxColumn Header="Paid" Binding="{Binding Paid}"/>
+                    <DataGridTextColumn Header="Balance" Binding="{Binding Balance}" FontSize="16"/>
+                    <DataGridTextColumn Header="Students Count" Binding="{Binding StudentCount}" FontSize="16"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel />
+            <CheckBox x:Name="guardianCheck" Content="Guardian ID" HorizontalAlignment="Left" Margin="605,5,0,0" VerticalAlignment="Top" Height="19" Width="153" Checked="CheckBox_Checked" Unchecked="guardianCheck_Unchecked" FontSize="16" FontWeight="Bold" Foreground="#FFDED8D8"/>
+            <CheckBox x:Name="paidCheck" Content="Paid" HorizontalAlignment="Left" Margin="743,5,0,0" VerticalAlignment="Top" Height="19" Width="80" Unchecked="paidCheck_Unchecked" Checked="paidCheck_Checked" FontSize="16" FontWeight="Bold" Foreground="#FFDED8D8"/>
+            <Label Content="Group Invoices By:" HorizontalAlignment="Left" Margin="428,-2,0,0" VerticalAlignment="Top" Width="171" HorizontalContentAlignment="Right" FontSize="16" FontWeight="Bold" Foreground="#FFDED8D8"/>
+        </Grid>
+
     </Grid>
 </Page>

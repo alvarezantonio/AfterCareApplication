@@ -23,14 +23,19 @@ namespace AfterCareApplication
     /// </summary>
     public partial class InvoicePage : Page
     {
+        public string nameString { get; set; }
         public InvoicePage()
         {
             InitializeComponent();
+            this.nameString = null;
             this.DataContext = this;
         }
 
-        private void buildListforInvoices()
+        private void buildListforInvoices(Object sender = null)
         {
+            CheckBox cBox = (CheckBox)sender;
+            ListCollectionView invoiceView;
+            PropertyGroupDescription invoiceGroup = null;
             AfterCareDataContext dbContext = new AfterCareDataContext();
             List<InvoiceItem> guardian_invoiceList = (
                 from s in dbContext.Guardian_Invoices
@@ -40,7 +45,7 @@ namespace AfterCareApplication
                 where n.userId == u.userId
                 select new InvoiceItem {InvoiceId = s.invoiceId , GuardianId = n.guardianId, FirstName = u.firstName, LastName = u.lastName,
                     StreetNumber = n.streetNumber, StreetName = n.streetName, City = n.city, State = n.state, Zip = n.zip,
-                    StartDate = s.startDate.ToString(), EndDate = s.endDate.ToString(), Balance = s.balance, Paid = s.paid,
+                    StartDate = s.startDate.ToString(), EndDate = s.endDate.ToString(), Balance = s.balance, Paid = s.paid, GroupProperty = this.nameString,
                     }).ToList();
 
             List<Student_Guardian> studentList = (
@@ -66,20 +71,60 @@ namespace AfterCareApplication
                     }
                 });
             });
-            
-            ListCollectionView invoiceView = new ListCollectionView(guardian_invoiceList);
-            PropertyGroupDescription invoiceGroup = new PropertyGroupDescription("GuardianId");
-            invoiceView.GroupDescriptions.Add(invoiceGroup);
-            
+            invoiceView = new ListCollectionView(guardian_invoiceList);
+            if (cBox != null)
+            {
+                switch (cBox.Name)
+                {
+                    case "guardianCheck":
+                        this.nameString = "For Guardian ID#";
+                        invoiceGroup = new PropertyGroupDescription("GuardianId");
+                        break;
+                    case "paidCheck":
+                        this.nameString = "With Paid Value of ";
+                        invoiceGroup = new PropertyGroupDescription("Paid");
+                        break;
+                }
+                if (invoiceGroup != null)
+                {
+                    invoiceView.GroupDescriptions.Clear();
+                    invoiceView.GroupDescriptions.Add(invoiceGroup);
+                    guardian_invoiceList.ForEach(delegate(InvoiceItem invoice)
+                    {
+                        invoice.GroupProperty = this.nameString;
+                    });
+                }
+            }
             invoiceGrid.ItemsSource = invoiceView;
-            
-            
-            
+            invoiceGrid.UnselectAll();
         }
 
-        private void Page_Loaded_1(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             buildListforInvoices();
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            paidCheck.IsChecked = false;
+            buildListforInvoices(sender);
+        }
+
+        private void guardianCheck_Unchecked(object sender, RoutedEventArgs e)
+        {
+            buildListforInvoices();
+        }
+
+        private void paidCheck_Unchecked(object sender, RoutedEventArgs e)
+        {
+            buildListforInvoices();
+        }
+
+        private void paidCheck_Checked(object sender, RoutedEventArgs e)
+        {
+            guardianCheck.IsChecked = false;
+            buildListforInvoices(sender);
+
         }
     }
 }
