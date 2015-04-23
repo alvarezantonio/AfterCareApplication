@@ -10,7 +10,7 @@
     <!--adding xmlns:res="clr-namespace:AfterCareApplication" above allows us to access resources from the AfterCareApplication namespace-->
     <Page.Resources>
         <!--Page resources that will be referenced to later by the key
-        Below is the style for the grouped invoices (By GuardianID)-->
+        Below is the style for the grouped invoices (By GuardianID or Paid)-->
         <TextBox Text="{Binding nameString}" x:Key="countName"/>
         <Style TargetType="{x:Type GroupItem}" x:Key="invoiceGroupStyle">
             <Setter Property="Template">

@@ -21,13 +21,12 @@ namespace AfterCareApplication
     public partial class NewUserFormPage : Page
     {
         AfterCareDataContext db = new AfterCareDataContext();
-
+        
         public string userId { get; set; }
         public string lastName { get; set; }
         public string firstName { get; set; }
         public string password { get; set; }
         public int accessId { get; set; }
-
         public List<Access> source;
         public List<Access> dSource
         {
@@ -35,33 +34,53 @@ namespace AfterCareApplication
             set { this.source = value; }
         }
         
-
+        
         public NewUserFormPage()
         {
             this.DataContext = this;
             InitializeComponent();
-
+            this.userId = null;
+            this.lastName = null;
+            this.firstName = null;
+            this.password = null;
+            this.accessId = -1;
         }
  
         private void nextButton_Click(object sender, RoutedEventArgs e)
         {
-            Page form = null;
-            if (userTypeBox.SelectedItem != null)
+            if (userId != null && lastName != null && firstName != null && password != null && accessId >= 0)
             {
-                
-                switch(userTypeBox.SelectionBoxItem.ToString())
+                User newUser = new User
+                {   
+                    userId = this.userId,
+                    accessId = this.accessId,
+                    firstName = this.firstName,
+                    lastName = this.lastName,
+                    password = this.password
+                };
+                db.Users.InsertOnSubmit(newUser);
+                Page form = null;
+                if (userTypeBox.SelectedItem != null)
                 {
-                    case "Student":
-                        form = new StudentFormPage(db);
-                    break;
-                    case "Guardian":
-                        form = new GuardianFormPage(db);
-                    break;
-                    case "Faculty":
-                        form = new FacultyFormPage(db);
-                    break;
+
+                    switch (userTypeBox.SelectionBoxItem.ToString())
+                    {
+                        case "Student":
+                            form = new StudentFormPage(db, userId);
+                            break;
+                        case "Guardian":
+                            form = new GuardianFormPage(db, userId);
+                            break;
+                        case "Faculty":
+                            form = new FacultyFormPage(db, userId);
+                            break;
+                    }
+                    Window.GetWindow(this).Content = form;
                 }
-                Window.GetWindow(this).Content = form;
+            }
+            else
+            {
+                nextErrorLabel.Content = "*Required fields are missing!";
             }
         }
 
@@ -104,22 +123,26 @@ namespace AfterCareApplication
                 accessBox.ItemsSource = this.dSource;
                 accessBox.Items.Refresh();
                 accessBox.SelectedIndex = 0;
-
+                setAccess();
             }
         }
 
         private void accessBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            setAccess();
+        }
+
+        private void setAccess()
         {
             ComboBox combobox = (ComboBox)accessBox;
             Access item = (Access)combobox.SelectedItem;
             if (item != null && item.accessName.Length > 0)
             {
                 Access tempAccess = (from a in db.Accesses
-                            where a.accessName == item.accessName
-                            select a).Single();
+                                     where a.accessName == item.accessName
+                                     select a).Single();
                 this.accessId = tempAccess.accessId;
-            }
-            
+            } 
         }
 
         private void passwordInput_PasswordChanged(object sender, RoutedEventArgs e)
@@ -130,7 +153,7 @@ namespace AfterCareApplication
             {
                 if (String.IsNullOrWhiteSpace(passValue))
                 {
-                    passErrorLabel.Content = "*Password may not start with a blank space";
+                    passErrorLabel.Content = "*Password may not be a blank space";
                 }
                 else
                 {
@@ -158,6 +181,17 @@ namespace AfterCareApplication
             {
                 passErrorLabel.Content = "";
             }
+        }
+
+        private void exitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).DialogResult = false;
+            Window.GetWindow(this).Close();
+        }
+
+        private void accessBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            setAccess();
         }
 
     }

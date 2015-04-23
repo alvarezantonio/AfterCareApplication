@@ -21,23 +21,31 @@ namespace AfterCareApplication
     /// </summary>
     public partial class StudentFormPage : Page
     {
+        public int guardianID { get; set; }
+        public string relationship { get; set; }
+        public double studentFee { get; set; }
+        public string feeType { get; set; }
+        public string homeroom { get; set; }
+        public string birthday { get; set; }
         private int startingYear = 2000;
         private int dobYear = 0;
         private int dobMonth = 0;
         private int dobDay = 0;
+        public string userID { get; set; }
         AfterCareDataContext db;
 
-        public StudentFormPage()
+        public StudentFormPage(AfterCareDataContext db, string UserID)
         {
+            this.DataContext = this;
             InitializeComponent();
-            setYearItems();
-        }
-
-        public StudentFormPage(AfterCareDataContext db)
-        {
+            this.userID = UserID;
+            this.guardianID = -1;
+            this.relationship = null;
+            this.studentFee = 0;
+            this.feeType = null;
+            this.homeroom = null;
+            this.birthday = null;
             this.db = db;
-            InitializeComponent();
-            setYearItems();
         }
 
         private void setYearItems()
@@ -124,7 +132,76 @@ namespace AfterCareApplication
 
         private void setDOBLabel()
         {
+            birthday = string.Format("{0}-{1}-{2}",dobYear,dobMonth,dobDay);
             birthdayOutput.Content = string.Format("{0} {1}, {2}", CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(dobMonth), dobDay, dobYear);
+        }
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            setYearItems();
+            ContextHelper cH = new ContextHelper();
+            ListCollectionView view = cH.getUsersByType("Guardian");
+            if (view != null) { guardianCombo.ItemsSource = view; }
+        }
+
+        private void guardianCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox gCombo = (ComboBox)sender;
+            GuardianUser gItem = (GuardianUser)gCombo.SelectedItem;
+            if (gItem != null)
+            {
+                this.guardianID = gItem.GuardianID;
+            }
+        }
+
+        private void relationshipCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox combo = (ComboBox)sender;
+            ComboBoxItem item = (ComboBoxItem)combo.SelectedItem;
+            string val = string.Format("{0}", item.Content);
+            this.relationship = val;
+        }
+
+        private void feeTypeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox combo = (ComboBox)sender;
+            ComboBoxItem item = (ComboBoxItem)combo.SelectedItem;
+            string val = string.Format("{0}", item.Content);
+            this.feeType = val;
+        }
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).DialogResult = false;
+            Window.GetWindow(this).Close();
+        }
+
+        private void doneButton_Click(object sender, RoutedEventArgs e)
+        {
+            if
+            (
+                this.guardianID >= 0 &&
+                this.relationship != null &&
+                this.studentFee > 0 &&
+                this.feeType != null &&
+                this.homeroom != null &&
+                this.birthday != null
+            )
+            {
+                int studID = db.Students.Count();
+                Student newStudent = new Student { birthday = this.birthday, homeroom = this.homeroom, userId = this.userID};
+                db.Students.InsertOnSubmit(newStudent);
+                db.SubmitChanges();
+                db.ExecuteCommand("INSERT INTO Student_Fee VALUES ({0},{1},{2})", newStudent.studentId, this.studentFee, this.feeType);
+                db.ExecuteCommand("INSERT INTO Student_Guardian VALUES ({0},{1},{2})", this.guardianID, newStudent.studentId, this.relationship);
+                db.SubmitChanges();
+                MessageBox.Show("Student was added successfully!");
+                Window.GetWindow(this).Close();
+            }
+            else
+            {
+                MessageBox.Show("Missing Value");
+            }
         }
     }
 }

@@ -76,6 +76,7 @@
     <Compile Include="AppDate.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ContextHelper.cs" />
     <Compile Include="EnrollmentPage.xaml.cs">
       <DependentUpon>EnrollmentPage.xaml</DependentUpon>
     </Compile>
@@ -85,6 +86,7 @@
     <Compile Include="GuardianFormPage.xaml.cs">
       <DependentUpon>GuardianFormPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GuardianUser.cs" />
     <Compile Include="InfoPage.xaml.cs">
       <DependentUpon>InfoPage.xaml</DependentUpon>
     </Compile>

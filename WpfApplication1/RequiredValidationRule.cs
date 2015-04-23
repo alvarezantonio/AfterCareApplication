@@ -29,7 +29,7 @@ namespace AfterCareApplication
             }
             else if(String.IsNullOrWhiteSpace(str))
             {
-                return new ValidationResult(false, "*User ID can't be blank space");
+                return new ValidationResult(false, "*Field can't be a blank space");
             }
             else if (_propertyName != null && _propertyName.Length > 1)
             {

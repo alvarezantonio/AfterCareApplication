@@ -3,27 +3,78 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:res="clr-namespace:AfterCareApplication"
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="650"
       Title="GuardianFormPage">
 
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="181,89,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="181,140,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="1"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="181,189,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="2"/>
+        <TextBox HorizontalAlignment="Left" Style="{StaticResource textBoxInError}" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" Height="23" Margin="181,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="0">
+            <TextBox.Text>
+                <Binding Path="streetNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <res:RequiredValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox HorizontalAlignment="Left" Style="{StaticResource textBoxInError}" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" Height="23" Margin="181,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="1">
+            <TextBox.Text>
+                <Binding Path="streetName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <res:RequiredValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox HorizontalAlignment="Left" Style="{StaticResource textBoxInError}" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" Height="23" Margin="181,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="2">
+            <TextBox.Text>
+                <Binding Path="city" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <res:RequiredValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <Label Content="Street Number:" HorizontalAlignment="Left" Margin="39,85,0,0" VerticalAlignment="Top" Width="121" HorizontalContentAlignment="Right" FontSize="14"/>
         <Label Content="Street Name:" HorizontalAlignment="Left" Margin="67,136,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
-        <Label Content="State:" HorizontalAlignment="Left" Margin="362,185,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
+        <Label Content="State:" HorizontalAlignment="Left" Margin="67,232,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
         <Label Content="City:" HorizontalAlignment="Left" Margin="67,185,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="476,189,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="6"/>
-        <Label Content="Zip:" HorizontalAlignment="Left" Margin="67,239,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="181,239,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="3"/>
-        <Button Content="Done" HorizontalAlignment="Left" Margin="248,340,0,0" VerticalAlignment="Top" Width="75" TabIndex="7"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="389,340,0,0" VerticalAlignment="Top" Width="75" TabIndex="8"/>
+        <TextBox HorizontalAlignment="Left" Style="{StaticResource textBoxInError}" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" Height="23" Margin="181,236,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="3">
+            <TextBox.Text>
+                <Binding Path="state" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <res:RequiredValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Label Content="Zip:" HorizontalAlignment="Left" Margin="67,284,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
+        <TextBox HorizontalAlignment="Left" Style="{StaticResource textBoxInError}" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" Height="23" Margin="181,284,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="4">
+            <TextBox.Text>
+                <Binding Path="zip" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <res:RequiredValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Button Name="doneButton" Content="Done" HorizontalAlignment="Left" Margin="248,340,0,0" VerticalAlignment="Top" Width="75" TabIndex="7" Click="doneButton_Click"/>
+        <Button Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="389,340,0,0" VerticalAlignment="Top" Width="75" TabIndex="8" Click="cancelButton_Click"/>
         <Label Content="New Guardian" HorizontalAlignment="Left" Margin="197,21,0,0" VerticalAlignment="Top" Width="258" HorizontalContentAlignment="Center" FontSize="20"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="476,87,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="4"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="476,138,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="5"/>
-        <Label Content="Home Phone:" HorizontalAlignment="Left" Margin="334,83,0,0" VerticalAlignment="Top" Width="121" HorizontalContentAlignment="Right" FontSize="14"/>
-        <Label Content="Cell Phone:" HorizontalAlignment="Left" Margin="362,134,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="476,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="5">
+            <TextBox.Text>
+                <Binding Path="home" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="476,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="6">
+            <TextBox.Text>
+                <Binding Path="cell" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Label Content="Home Phone:" HorizontalAlignment="Left" Margin="334,82,0,0" VerticalAlignment="Top" Width="121" HorizontalContentAlignment="Right" FontSize="14"/>
+        <Label Content="Cell Phone:" HorizontalAlignment="Left" Margin="362,136,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
     </Grid>
 </Page>
