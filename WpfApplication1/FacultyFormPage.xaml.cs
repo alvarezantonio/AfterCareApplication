@@ -28,7 +28,7 @@ namespace AfterCareApplication
         public string home { get; set; }
         public string cell { get; set; }
         public string userID { get; set; }
-        public double wage { get; set; }
+        public float wage { get; set; }
         public string wageType { get; set; }
         AfterCareDataContext db;
         public FacultyFormPage()
@@ -43,7 +43,7 @@ namespace AfterCareApplication
             userID = UserID;
             home = null;
             cell = null;
-            wage = 0.00;
+            wage = 0;
             streetNumber = null;
             streetName = null;
             city = null;
@@ -75,7 +75,7 @@ namespace AfterCareApplication
                 db.Faculties.InsertOnSubmit(newFaculty);
                 db.SubmitChanges();
 
-                //db.ExecuteCommand
+                db.ExecuteCommand("INSERT INTO Faculty_Wage VALUES ({0},{1},{2})",newFaculty.facultyId, wage, wageType); 
 
                 if (home != null)
                 {
@@ -97,11 +97,12 @@ namespace AfterCareApplication
             }
         }
 
-        private void wageComboBox_Loaded(object sender, RoutedEventArgs e)
+        private void updateWageType(object sender, RoutedEventArgs e)
         {
             ComboBox wageTypeBox = (ComboBox)sender;
             ComboBoxItem type = (ComboBoxItem)wageTypeBox.SelectedItem;
             this.wageType = type.Content.ToString();
         }
+
     }
 }

@@ -86,9 +86,9 @@
         <Label Content="Cell Phone:" HorizontalAlignment="Left" Margin="382,131,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
         <Label Content="Wage Type:" HorizontalAlignment="Left" Margin="382,231,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
         <Label Content="Wage:" HorizontalAlignment="Left" Margin="382,180,0,0" VerticalAlignment="Top" Width="93" HorizontalContentAlignment="Right" FontSize="14"/>
-        <ComboBox x:Name="wageComboBox" HorizontalAlignment="Left" SelectedIndex="0" Height="23" Margin="496,235,0,0" Text="" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="8" Loaded="wageComboBox_Loaded">
+        <ComboBox x:Name="wageComboBox" HorizontalAlignment="Left" SelectedIndex="0" Height="23" Margin="496,235,0,0" Text="" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="8" Loaded="updateWageType" SelectionChanged="updateWageType">
             <ComboBoxItem>Hourly</ComboBoxItem>
-            <ComboBoxItem>Salary</ComboBoxItem>
+            <ComboBoxItem>Weekly Salary</ComboBoxItem>
         </ComboBox>
     </Grid>
 </Page>

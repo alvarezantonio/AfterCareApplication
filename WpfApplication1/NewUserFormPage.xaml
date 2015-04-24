@@ -45,7 +45,7 @@
             <ComboBoxItem Content="Guardian"/>
             <ComboBoxItem Content="Faculty"/>
         </ComboBox>
-        <ComboBox Name="accessBox" SelectedIndex="0" HorizontalAlignment="Left" Height="23" Margin="197,356,0,0" Text="Access Level" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="5" ItemsSource="{Binding dSource}" SelectionChanged="accessBox_SelectionChanged" Loaded="accessBox_Loaded">
+        <ComboBox Name="accessBox" SelectedIndex="0" HorizontalAlignment="Left" Height="23" Margin="197,356,0,0" Text="Access Level" VerticalAlignment="Top" Width="120" FontSize="14" TabIndex="5" ItemsSource="{Binding dSource}" SelectionChanged="setAccess" Loaded="setAccess">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding accessName}">

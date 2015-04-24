@@ -123,26 +123,8 @@ namespace AfterCareApplication
                 accessBox.ItemsSource = this.dSource;
                 accessBox.Items.Refresh();
                 accessBox.SelectedIndex = 0;
-                setAccess();
+                setAccess(this, null);
             }
-        }
-
-        private void accessBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            setAccess();
-        }
-
-        private void setAccess()
-        {
-            ComboBox combobox = (ComboBox)accessBox;
-            Access item = (Access)combobox.SelectedItem;
-            if (item != null && item.accessName.Length > 0)
-            {
-                Access tempAccess = (from a in db.Accesses
-                                     where a.accessName == item.accessName
-                                     select a).Single();
-                this.accessId = tempAccess.accessId;
-            } 
         }
 
         private void passwordInput_PasswordChanged(object sender, RoutedEventArgs e)
@@ -189,10 +171,17 @@ namespace AfterCareApplication
             Window.GetWindow(this).Close();
         }
 
-        private void accessBox_Loaded(object sender, RoutedEventArgs e)
+        private void setAccess(object sender, RoutedEventArgs e)
         {
-            setAccess();
+            ComboBox combobox = (ComboBox)accessBox;
+            Access item = (Access)combobox.SelectedItem;
+            if (item != null && item.accessName.Length > 0)
+            {
+                Access tempAccess = (from a in db.Accesses
+                                     where a.accessName == item.accessName
+                                     select a).Single();
+                this.accessId = tempAccess.accessId;
+            } 
         }
-
     }
 }
