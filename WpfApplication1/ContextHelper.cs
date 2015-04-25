@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace AfterCareApplication
 {
-    class ContextHelper
+    class ContextHelper 
     {
         private AfterCareDataContext db = new AfterCareDataContext();
         private ListCollectionView theView;
@@ -18,7 +18,7 @@ namespace AfterCareApplication
 
         //Returns a listcollectionview by userType only
         public ListCollectionView getUsersByType(String userType)
-        {
+        { 
             theView = null;
             switch (userType)
             {

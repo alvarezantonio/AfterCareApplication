@@ -98,7 +98,7 @@ namespace AfterCareApplication
         }
 
         private void updateWageType(object sender, RoutedEventArgs e)
-        {
+        { 
             ComboBox wageTypeBox = (ComboBox)sender;
             ComboBoxItem type = (ComboBoxItem)wageTypeBox.SelectedItem;
             this.wageType = type.Content.ToString();

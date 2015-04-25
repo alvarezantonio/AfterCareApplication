@@ -171,7 +171,7 @@ namespace AfterCareApplication
             Window.GetWindow(this).Close();
         }
 
-        private void setAccess(object sender, RoutedEventArgs e)
+        private void setAccess(object sender, RoutedEventArgs e) 
         {
             ComboBox combobox = (ComboBox)accessBox;
             Access item = (Access)combobox.SelectedItem;
